@@ -8,7 +8,7 @@ use Domains\Shared\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 
-class BullyFlagNotitication extends Notification {
+class BullyFlagNotification extends Notification {
     use Queueable;
 
     public function __construct(
