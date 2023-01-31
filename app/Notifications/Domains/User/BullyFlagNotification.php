@@ -28,7 +28,8 @@ class BullyFlagNotification extends Notification {
             'authority' => [
                 'name' => $this->authority->name,
                 'email' => $this->authority->email
-            ]
+            ],
+            'type' => 'warning'
         ];
     }
 }

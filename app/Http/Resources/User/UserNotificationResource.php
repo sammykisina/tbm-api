@@ -1,13 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Resources\User;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserNotificationResource extends JsonResource
-{
-    public function toArray($request)
-    {
+class UserNotificationResource extends JsonResource {
+    public function toArray($request) {
         return [
             'id' => $this->id,
             'type' => 'user notification',
@@ -19,6 +19,7 @@ class UserNotificationResource extends JsonResource
                     'email' => $this->data['authority']['email'],
                 ],
                 'created_at' =>  $this->created_at->format('M d, Y'),
+                'type' => $this->data['type']
             ]
         ];
     }

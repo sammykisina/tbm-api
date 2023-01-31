@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api\V1\Shared;
 
 use App\Http\Resources\Shared\ConversationResource;
 use App\Http\Resources\Shared\MessageResource;
+use App\Notifications\Domains\User\NotifyReceiverOfBullyNotification;
 use Domains\Admin\Models\DeletedMessage;
 use Domains\Shared\Actions\CheckForCyberBullying;
 use Domains\Shared\Models\Conversation;
@@ -56,6 +57,12 @@ class ChatController {
                     'sender_id' =>  $validated['sender_id'],
                     'last_time_message' => now() // TODO: make a default value for this
                 ]);
+
+                $sender = User::query()->where('id', $validated['sender_id'])->first();
+                $receiver = User::query()->where('id', $validated['receiver_id'])->first();
+                if($sender->bully_flags >= 1){
+                    $receiver->notify(new NotifyReceiverOfBullyNotification(sender: $sender));
+                }
 
                 return response()->json(
                     data: [
