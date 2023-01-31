@@ -16,7 +16,8 @@ return new class extends Migration {
             $table->timestamp('email_verified_at')->nullable();
             $table->string(column: 'two_factor_code')->nullable();
             $table->dateTime(column: 'two_factor_expires_at')->nullable();
-            $table->string('password');
+            $table->string(column: 'password');
+            $table->integer(column: "bully_flags")->default(0);  // can only be updated by the authority
 
             $table->foreignId(column: 'role_id')
                    ->index()

@@ -27,6 +27,7 @@ class User extends Authenticatable {
         'email',
         'password',
         'role_id',
+        'bully_flags',
         'two_factor_code',
         'two_factor_expires_at'
     ];
