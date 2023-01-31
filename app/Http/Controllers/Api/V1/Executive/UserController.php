@@ -185,6 +185,11 @@ class UserController {
 
     public function sendWarning(User $authority, User $user): JsonResponse {
         try {
+            // updating the bully flag count
+            $user->update([
+                'bully_flags' => $user->bully_flags + 1
+            ]);
+
             $user->notify(new BullyFlagNotification(authority: $authority));
             return response()->json(
                 data: [
