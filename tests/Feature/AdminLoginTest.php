@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature;
 
 use Illuminate\Testing\Fluent\AssertableJson;
@@ -18,7 +20,8 @@ class AdminLoginTest extends TestCase {
         ]);
 
         $response
-        ->assertJson(fn (AssertableJson $json) => $json->where('error', 0)
+        ->assertJson(
+            fn (AssertableJson $json) => $json->where('error', 0)
                  ->has('token')
                  ->etc()
         );
@@ -31,7 +34,8 @@ class AdminLoginTest extends TestCase {
         ]);
 
         $response
-        ->assertJson(fn (AssertableJson $json) => $json->where('error', 1)
+        ->assertJson(
+            fn (AssertableJson $json) => $json->where('error', 1)
                  ->missing('token')
                  ->has('message')
         );
