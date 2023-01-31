@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api\V1\Executive;
 
 use App\Http\Requests\Shared\NormalUserRequest;
 use App\Http\Resources\Executive\UserResource;
+use App\Notifications\Domains\User\BullyFlagNotification;
 use Domains\Shared\Actions\CreateUser;
 use Domains\Shared\Models\Block;
 use Domains\Shared\Models\Location;
@@ -180,5 +181,27 @@ class UserController {
             ),
             status: Http::OK()
         );
+    }
+
+    public function sendWarning(User $authority, User $user): JsonResponse {
+        try {
+            $user->notify(new BullyFlagNotification(authority: $authority));
+            return response()->json(
+                data: [
+                    'error' => 0,
+                    'message' => 'Warning send successfully.'
+                ],
+                status: Http::ACCEPTED()
+            );
+        } catch (\Throwable $th) {
+            Log::info($th);
+            return response()->json(
+                data: [
+                    'error' => 1,
+                    'message' => 'Something went wrong.'
+                ],
+                status: Http::NOT_IMPLEMENTED()
+            );
+        }
     }
 }

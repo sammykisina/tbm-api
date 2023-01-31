@@ -48,6 +48,7 @@ Route::group([
         ->except(['edit', 'create', 'store', 'update', 'destroy', 'show']);
 
     Route::get('/reports/{authority}', [NotificationController::class, 'getReports']);
+    Route::post('/warnings/{authority}/users/{user}', [UserController::class, 'sendWarning']);
 });
 
 Route::group([
