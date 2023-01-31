@@ -3,13 +3,13 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Api\V1\Admin\AuthorityUserController;
-use App\Http\Controllers\Api\V1\Admin\NotificationController;
 use App\Http\Controllers\Api\V1\Admin\ReportBullyingController;
 use App\Http\Controllers\Api\V1\Auth\LoginController;
 use App\Http\Controllers\Api\V1\Auth\RegisterController;
 use App\Http\Controllers\Api\V1\Auth\VerifyTwoFactorCode;
 use App\Http\Controllers\Api\V1\Executive\UserController;
 use App\Http\Controllers\Api\V1\Shared\ChatController;
+use App\Http\Controllers\Api\V1\Shared\NotificationController;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -37,6 +37,7 @@ Route::group([
 
     Route::get('/messages', [ChatController::class, 'getDeletedMessages']);
     Route::post('/report/{admin}', ReportBullyingController::class);
+    Route::get('/notifications/{admin}', [NotificationController::class, 'getAdminNotifications']);
 });
 
 Route::group([
@@ -66,6 +67,5 @@ Route::group([
 
     Route::get('/{blockingUser}/block/{userToBeBlocked}', [UserController::class, 'block']);
     Route::get('/{user}/info/', [UserController::class, 'info']);
-
-    Route::get('/notifications/{member}', [NotificationController::class, 'getNotifications']);
+    Route::get('/notifications/{user}', [NotificationController::class, 'getUserNotifications']);
 });

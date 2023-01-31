@@ -39,39 +39,37 @@ class LoginController {
 
 
         // generate and send the two factor auth
-        $user->generateTwoFactorCode();
-        $user->notify(new TwoFactorCode);
-
-        return response()->json(
-            data: [
-                'error' => 0,
-                'message' => 'Welcome. Check you email for verification code.',
-                'user' => [
-                    'uuid' => $user->uuid,
-                ],
-            ]
-        );
-
-        // $role = $user->role()->pluck('slug')->all();
-        // $plain_text_token = $user->createToken('tbm-api-token', $role)->plainTextToken;
-
-        // update location
-
+        // $user->generateTwoFactorCode();
+        // $user->notify(new TwoFactorCode);
 
         // return response()->json(
         //     data: [
         //         'error' => 0,
-        //         'message' => "Verified. Have fun.",
+        //         'message' => 'Welcome. Check you email for verification code.',
         //         'user' => [
         //             'uuid' => $user->uuid,
-        //             'name' => $user->name,
-        //             'email' => $user->email,
-        //             'id' => $user->id,
-        //             'role' => $role[0],
         //         ],
-        //         'token' => $plain_text_token
-        //     ],
-        //     status: Http::ACCEPTED()
+        //     ]
         // );
+
+        $role = $user->role()->pluck('slug')->all();
+        $plain_text_token = $user->createToken('tbm-api-token', $role)->plainTextToken;
+
+
+        return response()->json(
+            data: [
+                'error' => 0,
+                'message' => "Verified. Have fun.",
+                'user' => [
+                    'uuid' => $user->uuid,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'id' => $user->id,
+                    'role' => $role[0],
+                ],
+                'token' => $plain_text_token
+            ],
+            status: Http::ACCEPTED()
+        );
     }
 }
