@@ -13,10 +13,10 @@ class UserNotificationResource extends JsonResource {
             'type' => 'user notification',
             'attributes' => [
                 'message' => $this->data['message'],
-                'flag_count' => $this->data['flag_count'],
+                'flag_count' => isset($this->data['flag_count']) ? $this->data['flag_count'] : "" ,
                 'authority' => [
-                    'name' => $this->data['authority']['name'],
-                    'email' => $this->data['authority']['email'],
+                    'name' =>  isset($this->data['authority']) ? $this->data['authority']['name'] : '',
+                    'email' => isset($this->data['authority']) ? $this->data['authority']['email'] : "",
                 ],
                 'created_at' =>  $this->created_at->format('M d, Y'),
                 'type' => $this->data['type']

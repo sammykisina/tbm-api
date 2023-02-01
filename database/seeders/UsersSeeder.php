@@ -44,5 +44,13 @@ class UsersSeeder extends Seeder {
             'role_id' => $user_role->id
         ]);
         Location::create(['user_id' => $user->id]);
+
+        $userTwo = User::create([
+            'email' => 'usertwo@ig.com',
+            'password' => Hash::make('user'),
+            'name' => 'User Two',
+            'role_id' => $user_role->id
+        ]);
+        Location::create(['user_id' => $userTwo->id]);
     }
 }
